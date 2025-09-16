@@ -41,6 +41,16 @@ export default function Home() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const trimmedIngredient = ingredient.trim();
+    if (!trimmedIngredient) {
+      setError("材料名を入力してください");
+      return;
+    }
+    if (trimmedIngredient.length > 120) {
+      setError("材料名が長すぎます (120 文字以内で入力してください)");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setRecipe(null);
@@ -53,7 +63,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           data: {
-            ingredient,
+            ingredient: trimmedIngredient,
             dietaryRestrictions: dietaryRestrictions.trim() || undefined
           }
         })
@@ -202,13 +212,53 @@ export default function Home() {
         >
           Recipe output
         </h2>
+        {loading && (
+          <div
+            style={{
+              marginTop: "1.5rem",
+              display: "grid",
+              gap: "1.25rem"
+            }}
+          >
+            {[1, 2, 3].map((row) => (
+              <div
+                key={row}
+                aria-hidden
+                style={{
+                  display: "grid",
+                  gap: "0.5rem"
+                }}
+              >
+                <div
+                  style={{
+                    height: "20px",
+                    borderRadius: "999px",
+                    background: "linear-gradient(90deg, #e2e8f0, #f8fafc, #e2e8f0)",
+                    backgroundSize: "200% 100%",
+                    animation: "pulse 1.6s ease-in-out infinite"
+                  }}
+                />
+                <div
+                  style={{
+                    height: "16px",
+                    borderRadius: "999px",
+                    background: "linear-gradient(90deg, #e2e8f0, #f8fafc, #e2e8f0)",
+                    backgroundSize: "200% 100%",
+                    animation: "pulse 1.6s ease-in-out infinite",
+                    width: row === 1 ? "60%" : row === 2 ? "75%" : "45%"
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
         {!recipe && !error && !loading && (
           <p style={{ marginTop: "1rem", color: "#64748b" }}>
             Submit an ingredient to see a structured recipe response.
           </p>
         )}
 
-        {recipe && (
+        {recipe && !loading && (
           <article style={{ marginTop: "1.5rem", display: "grid", gap: "1.5rem" }}>
             <header>
               <h3 style={{ margin: 0, fontSize: "1.75rem" }}>{recipe.title}</h3>

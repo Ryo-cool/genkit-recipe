@@ -44,4 +44,6 @@
 6. Hit the flow: `curl -X POST http://localhost:3400/recipeGeneratorFlow -H 'Content-Type: application/json' -d '{"data":{"ingredient":"tomato","dietaryRestrictions":"vegan"}}'`.
 7. Inspect traces in the Dev UI and compare against official samples when extending functionality.
 
+**Notes (2025-09-16):** 現在の開発環境はネットワークが制限されており、`go run ./cmd/recipe` 実行時に `generativelanguage.googleapis.com` への DNS 解決が失敗します。Gemini API に接続できないため、Flow 起動・Dev UI 検証を行う場合はネットワーク制限の解除またはプロキシ設定が必要です。
+
 _Revisit these links whenever Genkit announces SDK or CLI updates to stay aligned with upstream changes._
