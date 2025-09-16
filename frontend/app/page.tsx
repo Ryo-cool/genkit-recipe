@@ -283,7 +283,7 @@ export default function Home() {
                 >
                   {recipe.tips.map((tip, index) => (
                     <li key={index}>{tip}</li>
-                ))}
+                  ))}
                 </ul>
               </section>
             )}

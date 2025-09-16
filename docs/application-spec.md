@@ -11,7 +11,7 @@
 ### 目標
 
 - `RecipeInput` → `Recipe` スキーマを通じて決定論的なリクエスト/レスポンス契約を提供する。
-- 最小限のセットアップでローカルでエンドツーエンドで実行する（`go run .`、`genkit start`）。
+- 最小限のセットアップでローカルでエンドツーエンドで実行する（`cd backend && go run ./cmd/recipe`、`cd backend && genkit start -- go run ./cmd/recipe`）。
 - Dev UI 内でデバッグのためのフロートレースとプロンプト履歴を表示する。
 - HTTP クライアント（curl、Postman、BFF）が `/recipeGeneratorFlow` を利用できるようにする。
 
@@ -27,7 +27,7 @@
 2. タイトル、説明、準備/調理時間、人数、材料リスト、手順、オプションのコツを含む構造化された `Recipe` JSON ボディを生成する。
 3. 起動時にスモークチェック用のサンプルレシピを stdout にログ出力する。
 4. `127.0.0.1:3400` で `POST /recipeGeneratorFlow` を公開する HTTP サーバーをホストする。
-5. Genkit Dev UI 経由でのインタラクティブ実行をサポートする（`genkit start -- go run .`、UI は `http://localhost:4000`）。
+5. Genkit Dev UI 経由でのインタラクティブ実行をサポートする（`cd backend && genkit start -- go run ./cmd/recipe`、UI は `http://localhost:4000`）。
 
 ## 4. システムアーキテクチャ
 
@@ -95,21 +95,22 @@ Genkit ランタイム -> クライアント: HTTP 200 + Recipe
 
 | パス                        | 目的                                                                                    |
 | --------------------------- | --------------------------------------------------------------------------------------- |
-| `cmd/recipe/main.go`        | 複数のバイナリをスケールする際にエントリーポイントをここに移動する。                    |
-| `internal/flows/recipe.go`  | フロー定義とプロンプト構築ヘルパー。                                                    |
-| `internal/models/recipe.go` | リクエスト/レスポンススキーマ用の共有構造体。                                           |
+| `backend/cmd/recipe/main.go`        | 複数のバイナリをスケールする際にエントリーポイントをここに移動する。                    |
+| `backend/internal/flows/recipe.go`  | フロー定義とプロンプト構築ヘルパー。                                                    |
+| `backend/internal/models/recipe.go` | リクエスト/レスポンススキーマ用の共有構造体。                                           |
+| `frontend/`                          | Next.js クライアントアプリ。                                                            |
 | `docs/`                     | 仕様書、エージェントガイド（`AGENTS.md`）、アーキテクチャドキュメント（このファイル）。 |
 | `testdata/`                 | 統合テスト用のゴールデン JSON レスポンス。                                              |
 
-> **注意**: 現在のプロトタイプはすべてをプロジェクトルートに保持している。機能が成熟したら上記のレイアウトにリファクタリングする。
+> **注意**: 2025-09-16 時点で上記レイアウトへ移行済み。追加サービスが増えた場合も `backend/` / `frontend/` 配下で整理する方針。
 
 ## 9. 開発ワークフロー
 
-1. `go mod tidy` – 依存関係が同期されていることを確認する。
+1. `cd backend && go mod tidy` – 依存関係が同期されていることを確認する。
 2. `npm install -g genkit-cli` – マシンごとに一度実行。`genkit --version` で確認する。
 3. `export GEMINI_API_KEY=...` – フロー実行前に設定する。
-4. `go run .` – クイックスモークテスト（stdout サンプル出力 + サーバー開始）。
-5. `genkit start -- go run .` – トレース検査のための Dev UI を有効にする。
+4. `go run ./cmd/recipe`（`backend/` 内） – クイックスモークテスト（stdout サンプル出力 + サーバー開始）。
+5. `genkit start -- go run ./cmd/recipe`（`backend/` 内） – トレース検査のための Dev UI を有効にする。
 6. `curl -X POST http://localhost:3400/recipeGeneratorFlow ...` – 契約を確認する。
 
 ## 10. 将来の機能拡張
