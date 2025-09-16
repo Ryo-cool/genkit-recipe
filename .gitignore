@@ -25,6 +25,8 @@ vendor/
 .env
 .env.*
 .venv/
+.genkit/
+.cache/
 
 # Node / Next.js
 node_modules/
