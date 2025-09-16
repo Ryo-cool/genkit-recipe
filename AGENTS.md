@@ -39,8 +39,8 @@
 1. Install Go 1.24+ and Node.js 20+.
 2. Install Genkit CLI: `npm install -g genkit-cli`.
 3. Export `GEMINI_API_KEY` (or provider-specific secret).
-4. Run `go mod tidy` in this repo (ensures dependencies match docs examples).
-5. Start Dev UI + flow: `genkit start -- go run .` (server on :3400, UI on :4000 per docs).
+4. Run `cd backend && go mod tidy` (ensures dependencies match docs examples).
+5. Start Dev UI + flow: `cd backend && genkit start -- go run ./cmd/recipe` (server on :3400, UI on :4000 per docs).
 6. Hit the flow: `curl -X POST http://localhost:3400/recipeGeneratorFlow -H 'Content-Type: application/json' -d '{"data":{"ingredient":"tomato","dietaryRestrictions":"vegan"}}'`.
 7. Inspect traces in the Dev UI and compare against official samples when extending functionality.
 

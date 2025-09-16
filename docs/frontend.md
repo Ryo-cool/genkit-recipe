@@ -7,23 +7,23 @@
 
 ## Directory Layout
 ```
-apps/
-  web/
-    app/
-      layout.tsx      # Root layout + metadata
-      page.tsx        # Main recipe form and renderer
-      globals.css     # Base styles
-    next.config.mjs
-    package.json
-    tsconfig.json
-    next-env.d.ts
+frontend/
+  app/
+    layout.tsx      # Root layout + metadata
+    page.tsx        # Main recipe form and renderer
+    globals.css     # Base styles
+  next.config.mjs
+  package.json
+  tsconfig.json
+  next-env.d.ts
+  .eslintrc.json
 ```
 
-This follows a monorepo-friendly convention (`apps/web`) leaving room for future services under `cmd/` and `internal/` on the backend.
+バックエンドとの分離を明確にするため、Next.js プロジェクトは `frontend/` 直下にまとまっています。Go 側は `backend/` に収容され、モジュール構成が分かりやすくなりました。
 
 ## Local Development
-1. Install dependencies once: `cd apps/web && npm install`.
-2. Run the backend flow server (`go run .` or `genkit start -- go run .`).
+1. Install dependencies once: `cd frontend && npm install`.
+2. Run the backend flow server (`cd backend && go run ./cmd/recipe` または `cd backend && genkit start -- go run ./cmd/recipe`).
 3. Start the Next.js dev server: `npm run dev` (defaults to `http://localhost:3000`).
 4. Update `.env.local` if you proxy through Next.js (optional; see below).
 

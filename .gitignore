@@ -53,5 +53,5 @@ playwright-report/
 playwright/.cache
 
 # Local config overrides
-apps/web/.env.local
-apps/web/.env.*.local
+frontend/.env.local
+frontend/.env.*.local

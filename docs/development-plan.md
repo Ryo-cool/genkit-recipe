@@ -3,13 +3,13 @@
 _Last updated: 2025-09-16_
 
 ## Phase 0 – Baseline Validation
-- [ ] Confirm Go server runs (`go run .`) and returns structured JSON for sample requests.
-- [ ] Verify Genkit Dev UI traces appear via `genkit start -- go run .`.
-- [ ] Smoke test Next.js client (`npm run dev` in `apps/web`) hitting local flow endpoint.
+- [ ] Confirm Go server runs (`cd backend && go run ./cmd/recipe`) and returns structured JSON for sample requests.
+- [ ] Verify Genkit Dev UI traces appear via `cd backend && genkit start -- go run ./cmd/recipe`.
+- [ ] Smoke test Next.js client (`cd frontend && npm run dev`) hitting local flow endpoint.
 - [ ] Document any setup discrepancies in `AGENTS.md`.
 
 ## Phase 1 – Backend Hardening
-- [ ] Refactor into `cmd/recipe`, `internal/flows`, `internal/models` per spec.
+- [ ] Refactor into `backend/cmd/recipe`, `backend/internal/flows`, `backend/internal/models` per spec.
 - [ ] Add input validation (missing ingredient, max string length).
 - [ ] Introduce configurable model parameters (temperature, max tokens).
 - [ ] Implement structured logging for flow invocations.
