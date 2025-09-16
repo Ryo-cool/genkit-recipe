@@ -40,6 +40,12 @@ npm run dev
 - ブラウザで `http://localhost:3000` を開くとフォームからレシピ生成を試せます。
 - API エンドポイントを変更する場合は `.env.local` に `NEXT_PUBLIC_API_BASE` を設定します。
 
+### Makefile（便利コマンド）
+```bash
+make help
+```
+- 代表的なターゲット: `make setup`（依存取得）、`make backend-run`、`make backend-test`、`make backend-dev-ui`、`make frontend-dev`、`make frontend-build`、`make frontend-lint`。
+
 ## テスト（今後）
 - Go: `cd backend && go test ./...`
 - Web: `cd frontend && npm run lint`

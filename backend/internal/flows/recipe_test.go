@@ -27,7 +27,10 @@ func TestBuildRecipePrompt(t *testing.T) {
 			wantPrompt: "Create a complete cooking recipe using the following requirements.\n\n" +
 				"Main ingredient or cuisine focus: tomato\n" +
 				"Dietary requirements: none\n\n" +
-				"Respond with concise instructions and note any cooking tips when helpful.",
+				"Respond with concise instructions and note any cooking tips when helpful.\n\n" +
+				"Respond ONLY with valid JSON that matches this structure:\n{" +
+				"\n  \"title\": string,\n  \"description\": string,\n  \"prepTime\": string,\n  \"cookTime\": string,\n  \"servings\": number,\n  \"ingredients\": [string],\n  \"instructions\": [string],\n  \"tips\": [string] (optional)\n}" +
+				"\nDo not include any extra text outside the JSON.",
 			wantSanitize: "none",
 		},
 		{
@@ -37,7 +40,10 @@ func TestBuildRecipePrompt(t *testing.T) {
 			wantPrompt: "Create a complete cooking recipe using the following requirements.\n\n" +
 				"Main ingredient or cuisine focus: miso\n" +
 				"Dietary requirements: gluten-free\n\n" +
-				"Respond with concise instructions and note any cooking tips when helpful.",
+				"Respond with concise instructions and note any cooking tips when helpful.\n\n" +
+				"Respond ONLY with valid JSON that matches this structure:\n{" +
+				"\n  \"title\": string,\n  \"description\": string,\n  \"prepTime\": string,\n  \"cookTime\": string,\n  \"servings\": number,\n  \"ingredients\": [string],\n  \"instructions\": [string],\n  \"tips\": [string] (optional)\n}" +
+				"\nDo not include any extra text outside the JSON.",
 			wantSanitize: "gluten-free",
 		},
 	}

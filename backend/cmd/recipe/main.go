@@ -44,9 +44,13 @@ func main() {
 		Logger:          logger,
 	})
 
-	if err := runStartupSample(ctx, recipeFlow, logger); err != nil {
-		logger.Error("startup sample generation failed", "error", err)
-		os.Exit(1)
+	if os.Getenv("DISABLE_STARTUP_SAMPLE") != "1" {
+		if err := runStartupSample(ctx, recipeFlow, logger); err != nil {
+			logger.Error("startup sample generation failed", "error", err)
+			os.Exit(1)
+		}
+	} else {
+		logger.Info("startup sample disabled via DISABLE_STARTUP_SAMPLE=1")
 	}
 
 	mux := http.NewServeMux()
