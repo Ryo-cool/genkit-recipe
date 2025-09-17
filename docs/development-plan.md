@@ -4,19 +4,24 @@ _Last updated: 2025-09-16_
 
 ## Phase 0 – Baseline Validation
 - [ ] Confirm Go server runs (`cd backend && go run ./cmd/recipe`) and returns structured JSON for sample requests.
+  - Blocked 2025-09-16: `go run` 呼び出し時に DNS 解決がサンドボックスで拒否され、Gemini API へ到達できず起動失敗。`GEMINI_API_KEY` は設定済みだがネットワーク制限が原因。
 - [ ] Verify Genkit Dev UI traces appear via `cd backend && genkit start -- go run ./cmd/recipe`.
+  - Blocked 2025-09-16: 上記と同様にバックエンド起動が失敗するため未検証。
 - [ ] Smoke test Next.js client (`cd frontend && npm run dev`) hitting local flow endpoint.
-- [ ] Document any setup discrepancies in `AGENTS.md`.
+  - Pending 2025-09-16: バックエンドが未起動のため実施できず。ネットワーク制限解除後に再試行。
+- [x] Document any setup discrepancies in `AGENTS.md`.
+  - 実際のネットワーク制限事項を本ドキュメントに記載。
 
 ## Phase 1 – Backend Hardening
-- [ ] Refactor into `backend/cmd/recipe`, `backend/internal/flows`, `backend/internal/models` per spec.
-- [ ] Add input validation (missing ingredient, max string length).
-- [ ] Introduce configurable model parameters (temperature, max tokens).
-- [ ] Implement structured logging for flow invocations.
-- [ ] Create unit tests for prompt builder and flow happy-path.
+- [x] Refactor into `backend/cmd/recipe`, `backend/internal/flows`, `backend/internal/models` per spec.
+- [x] Add input validation (missing ingredient, max string length).
+- [x] Introduce configurable model parameters (temperature, max tokens).
+- [x] Implement structured logging for flow invocations.
+- [x] Create unit tests for prompt builder and flow happy-path.
 
 ## Phase 2 – Frontend Enhancements
-- [ ] Add client-side validation (empty ingredient, loading states with skeletons).
+- [x] Add client-side validation (empty ingredient, loading states with skeletons).
+  - 完了 2025-09-16: `frontend/app/page.tsx` で必須入力チェック・最大文字数チェック・ローディングスケルトンを実装。
 - [ ] Persist recent recipes locally (session storage) for quick comparisons.
 - [ ] Create responsive layout with reusable UI primitives (CSS modules or design system).
 - [ ] Add status indicator for backend connectivity.
